@@ -17,7 +17,13 @@ import { KoiPond } from "@/components/koi-pond";
 import { Seigaiha } from "@/components/seigaiha";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { CS_HREF, LOGIN_HREF, REGISTER_HREF } from "@/lib/site";
+import {
+  CS_HREF,
+  LOGIN_HREF,
+  OFFICIAL_DOMAIN,
+  OFFICIAL_URL,
+  REGISTER_HREF,
+} from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "KOIJP — Slot, Live Casino, Sportsbook & Togel",
@@ -647,12 +653,18 @@ function OfficialLink() {
             Hindari situs tiruan. Akses KOIJP hanya lewat link resmi atau link
             yang dibagikan langsung oleh customer service kami.
           </p>
-          <span className="flex w-fit items-center gap-3 rounded-full bg-background/70 py-2 pr-5 pl-2 ring-1 ring-gold/30 backdrop-blur">
+          <a
+            href={OFFICIAL_URL}
+            rel="nofollow noopener"
+            target="_blank"
+            className="group flex w-fit items-center gap-3 rounded-full bg-background/70 py-2 pr-4 pl-2 ring-1 ring-gold/30 backdrop-blur transition-colors hover:ring-gold/60"
+          >
             <span className="grid size-8 place-items-center rounded-full bg-gold text-ink">
               <ShieldCheck className="size-4" />
             </span>
-            <span className="font-mono text-sm tracking-wide">koijp.com</span>
-          </span>
+            <span className="font-mono text-sm tracking-wide">{OFFICIAL_DOMAIN}</span>
+            <ArrowUpRight className="size-4 text-muted-foreground transition-transform group-hover:rotate-45" />
+          </a>
         </figcaption>
       </figure>
     </section>
@@ -741,7 +753,7 @@ const FAQS = [
   },
   {
     q: "Apa link resmi KOIJP?",
-    a: "Selalu akses KOIJP lewat koijp.com atau link yang dibagikan langsung oleh customer service resmi kami.",
+    a: `Selalu akses KOIJP lewat ${OFFICIAL_DOMAIN} atau link yang dibagikan langsung oleh customer service resmi kami.`,
   },
   {
     q: "Apakah KOIJP bisa dimainkan lewat HP?",

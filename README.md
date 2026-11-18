@@ -16,6 +16,10 @@ Buka http://localhost:3000/home.
 
 ## Konfigurasi
 
-Link daftar, masuk, dan customer service ada di `lib/site.ts`.
-Domain untuk sitemap/canonical diambil dari `NEXT_PUBLIC_SITE_URL`
-(default `https://koijp.com`).
+Semua link ada di `lib/site.ts`:
+
+- `OFFICIAL_DOMAIN` — link resmi yang ditampilkan dan dituju tombol
+  Daftar/Masuk (`linkkoijp.com`)
+- `CS_HREF` — WhatsApp customer service
+- `SITE_URL` — domain untuk canonical, sitemap, dan og:url
+  (`https://koijp.sh`, bisa di-override lewat `NEXT_PUBLIC_SITE_URL`)
