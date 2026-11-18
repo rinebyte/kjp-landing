@@ -23,27 +23,99 @@ import {
   OFFICIAL_DOMAIN,
   OFFICIAL_URL,
   REGISTER_HREF,
+  SITE_URL,
 } from "@/lib/site";
 
+const PAGE_TITLE = "KOIJP — Slot, Live Casino, Sportsbook & Togel";
+const PAGE_DESCRIPTION =
+  "Satu akun KOIJP untuk slot, live casino, sportsbook, dan togel. Daftar cepat, transaksi lewat bank, e-wallet, QRIS, dan pulsa, dengan customer service 24 jam.";
+const OG_IMAGE = {
+  url: "/og.jpg",
+  width: 1200,
+  height: 630,
+  alt: "KOIJP — Semua permainan favoritmu, dalam satu kolam.",
+};
+
 export const metadata: Metadata = {
-  title: "KOIJP — Slot, Live Casino, Sportsbook & Togel",
-  description:
-    "Satu akun KOIJP untuk slot, live casino, sportsbook, dan togel. Daftar cepat, transaksi lewat bank, e-wallet, QRIS, dan pulsa, dengan customer service 24 jam.",
+  title: { absolute: PAGE_TITLE },
+  description: PAGE_DESCRIPTION,
   alternates: { canonical: "/home" },
   openGraph: {
-    title: "KOIJP — Slot, Live Casino, Sportsbook & Togel",
+    title: PAGE_TITLE,
     description:
       "Satu akun untuk slot, live casino, sportsbook, dan togel. Customer service 24 jam.",
     url: "/home",
-    images: [{ url: "/banners/banner-torii.webp", width: 1774, height: 887 }],
+    siteName: "KOIJP",
+    images: [OG_IMAGE],
     locale: "id_ID",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: PAGE_TITLE,
+    description:
+      "Satu akun untuk slot, live casino, sportsbook, dan togel. Customer service 24 jam.",
+    images: [OG_IMAGE],
+  },
+  robots: { index: true, follow: true },
 };
+
+/** Structured data: organisasi, situs, halaman, dan FAQ. */
+function JsonLd() {
+  const page = `${SITE_URL}/home`;
+  const data = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: "KOIJP",
+        url: page,
+        logo: `${SITE_URL}/logo.jpg`,
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        name: "KOIJP",
+        url: page,
+        inLanguage: "id-ID",
+        publisher: { "@id": `${SITE_URL}/#organization` },
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${page}#webpage`,
+        url: page,
+        name: PAGE_TITLE,
+        description: PAGE_DESCRIPTION,
+        inLanguage: "id-ID",
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        primaryImageOfPage: `${SITE_URL}${OG_IMAGE.url}`,
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${page}#faq`,
+        mainEntity: FAQS.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      },
+    ],
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
+      }}
+    />
+  );
+}
 
 export default function HomePage() {
   return (
     <>
+      <JsonLd />
       <SiteHeader />
       <main>
         <Hero />
@@ -151,19 +223,25 @@ function Hero() {
 
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.25fr_1fr] lg:gap-10">
         <div className="flex flex-col gap-8">
-          <p className="animate-rise flex w-fit items-center gap-2.5 rounded-full bg-white/[0.04] py-1.5 pr-4 pl-1.5 text-xs text-muted-foreground ring-1 ring-white/10">
-            <span className="font-kanji grid size-6 place-items-center rounded-full bg-primary text-[13px] text-primary-foreground">
+          <div className="animate-rise flex w-fit items-center gap-2.5 rounded-full bg-white/[0.04] py-1.5 pr-4 pl-1.5 ring-1 ring-white/10">
+            <span
+              aria-hidden
+              className="font-kanji grid size-6 place-items-center rounded-full bg-primary text-[13px] text-primary-foreground"
+            >
               鯉
             </span>
-            Slot · Live Casino · Sportsbook · Togel
-          </p>
+            <h1 className="text-xs font-normal text-muted-foreground">
+              <span className="font-medium text-foreground">KOIJP</span>
+              {" — "}Slot, Live Casino, Sportsbook &amp; Togel
+            </h1>
+          </div>
 
-          <h1
-            className="display animate-rise text-[clamp(3.25rem,6.6vw,6rem)]"
+          <p
+            className="display animate-rise text-[clamp(3.25rem,6.6vw,6rem)] text-balance"
             style={{ animationDelay: "80ms" }}
           >
             Semua permainan favoritmu, dalam <Em>satu kolam.</Em>
-          </h1>
+          </p>
 
           <p
             className="animate-rise max-w-md text-lg leading-relaxed text-muted-foreground"
