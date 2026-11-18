@@ -23,7 +23,7 @@ export function MobileMenu() {
         aria-expanded={open}
         aria-controls="mobile-menu"
         onClick={() => setOpen((v) => !v)}
-        className="grid size-9 place-items-center rounded-full text-foreground transition-colors hover:bg-white/[0.06]"
+        className="grid size-10 place-items-center rounded-full text-foreground transition-colors hover:bg-white/[0.06]"
       >
         {open ? <X className="size-5" /> : <Menu className="size-5" />}
       </button>
@@ -31,38 +31,41 @@ export function MobileMenu() {
       {open && (
         <div
           id="mobile-menu"
-          className="absolute inset-x-0 top-full border-b border-border bg-background/95 backdrop-blur-xl"
+          className="animate-rise absolute inset-x-0 top-full mt-2 overflow-hidden rounded-3xl bg-surface/95 p-2 shadow-2xl shadow-black/50 ring-1 ring-white/[0.08] backdrop-blur-xl [animation-duration:.35s]"
         >
-          <nav aria-label="Navigasi" className="mx-auto flex max-w-6xl flex-col px-4 py-3">
-            {SECTIONS.map((s) => (
+          <nav aria-label="Navigasi" className="flex flex-col">
+            {SECTIONS.map((s, i) => (
               <a
                 key={s.id}
                 href={`#${s.id}`}
                 onClick={() => setOpen(false)}
-                className="rounded-xl px-3 py-2.5 text-[15px] text-muted-foreground transition-colors hover:bg-white/[0.04] hover:text-foreground"
+                className="flex items-baseline gap-3 rounded-2xl px-4 py-3 transition-colors hover:bg-white/[0.04]"
               >
-                {s.label}
+                <span className="font-mono text-[11px] text-gold/70">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="display text-2xl">{s.label}</span>
               </a>
             ))}
-            <div className="mt-2 grid grid-cols-2 gap-2 border-t border-border pt-4 pb-2">
-              <a
-                href={LOGIN_HREF}
-                rel="nofollow noopener"
-                target="_blank"
-                className="grid h-10 place-items-center rounded-full text-sm ring-1 ring-border"
-              >
-                Masuk
-              </a>
-              <a
-                href={REGISTER_HREF}
-                rel="nofollow noopener"
-                target="_blank"
-                className="grid h-10 place-items-center rounded-full bg-primary text-sm font-medium text-primary-foreground"
-              >
-                Daftar
-              </a>
-            </div>
           </nav>
+          <div className="mt-2 grid grid-cols-2 gap-2 border-t border-border p-2 pt-4">
+            <a
+              href={LOGIN_HREF}
+              rel="nofollow noopener"
+              target="_blank"
+              className="grid h-11 place-items-center rounded-full text-sm ring-1 ring-border"
+            >
+              Masuk
+            </a>
+            <a
+              href={REGISTER_HREF}
+              rel="nofollow noopener"
+              target="_blank"
+              className="grid h-11 place-items-center rounded-full bg-primary text-sm font-medium text-primary-foreground"
+            >
+              Daftar
+            </a>
+          </div>
         </div>
       )}
     </div>
