@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     description:
       "Satu akun untuk slot, live casino, sportsbook, dan togel. Customer service 24 jam.",
     url: "/home",
-    images: [{ url: "/banners/banner-2.jpg", width: 2249, height: 1093 }],
+    images: [{ url: "/banners/banner-torii.webp", width: 1774, height: 887 }],
     locale: "id_ID",
     type: "website",
   },
@@ -607,57 +607,53 @@ function Steps() {
 /* Official link — the replaceable banner slot                       */
 /* ================================================================ */
 
-/** Ganti gambar ini untuk memperbarui banner. Rasio ideal ≈ 2:1. */
+/**
+ * Ganti gambar ini untuk memperbarui banner. Rasio 2:1; biarkan ±45% sisi
+ * kiri tetap gelap/kosong karena teks ditaruh di atasnya (desktop).
+ * `mobileFocus` = bagian gambar yang tetap terlihat saat di-crop di HP.
+ */
 const BANNER = {
-  src: "/banners/banner-2.jpg",
-  alt: "Selalu ingat link resmi KOIJP — koijp.com",
-  width: 2249,
-  height: 1093,
+  src: "/banners/banner-torii.webp",
+  alt: "Gerbang torii di kolam koi pada malam hari",
+  mobileFocus: "78% 50%",
 };
 
 function OfficialLink() {
   return (
-    <section className="grid items-center gap-12 lg:grid-cols-[1fr_1.4fr]">
-      <div className="reveal flex flex-col gap-6">
-        <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] text-gold uppercase">
-          <span>Link resmi</span>
-          <span className="h-px w-8 bg-gold/50" />
-        </p>
-        <h2 className="display text-5xl sm:text-6xl">
-          Selalu lewat <Em>pintu yang benar.</Em>
-        </h2>
-        <p className="max-w-sm leading-relaxed text-muted-foreground">
-          Hindari situs tiruan. Akses KOIJP hanya lewat link resmi atau link
-          yang dibagikan langsung oleh customer service kami.
-        </p>
-        <span className="flex w-fit items-center gap-3 rounded-full bg-surface py-2 pr-5 pl-2 ring-1 ring-gold/30">
-          <span className="grid size-8 place-items-center rounded-full bg-gold text-ink">
-            <ShieldCheck className="size-4" />
-          </span>
-          <span className="font-mono text-sm tracking-wide">koijp.com</span>
-        </span>
-      </div>
-
-      <figure className="reveal relative">
-        {/* gold corner brackets */}
-        {[
-          "top-0 left-0 border-t border-l rounded-tl-2xl",
-          "top-0 right-0 border-t border-r rounded-tr-2xl",
-          "bottom-0 left-0 border-b border-l rounded-bl-2xl",
-          "bottom-0 right-0 border-b border-r rounded-br-2xl",
-        ].map((c) => (
-          <span key={c} aria-hidden className={`absolute size-10 border-gold/60 ${c}`} />
-        ))}
-        <div className="m-3 overflow-hidden rounded-2xl shadow-2xl shadow-black/60 sm:m-4">
+    <section className="reveal">
+      <figure className="relative overflow-hidden rounded-[2rem] bg-surface ring-1 ring-white/[0.06]">
+        <div className="relative aspect-[4/3] sm:aspect-[16/9] md:aspect-[2/1]">
           <Image
             src={BANNER.src}
             alt={BANNER.alt}
-            width={BANNER.width}
-            height={BANNER.height}
-            sizes="(max-width: 1024px) 100vw, 640px"
-            className="block h-auto w-full"
+            fill
+            sizes="(max-width: 1152px) 100vw, 1152px"
+            className="object-cover md:!object-center"
+            style={{ objectPosition: BANNER.mobileFocus }}
           />
+          {/* mobile: fade into the caption below · desktop: deepen the left side for text */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--surface),transparent_45%)] md:bg-[linear-gradient(90deg,oklch(0.145_0.008_35/0.85),oklch(0.145_0.008_35/0.35)_40%,transparent_60%)]" />
         </div>
+
+        <figcaption className="relative flex flex-col gap-5 px-6 pt-2 pb-8 sm:px-10 md:absolute md:inset-y-0 md:left-0 md:w-[48%] md:justify-center md:p-12 lg:p-16">
+          <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] text-gold uppercase">
+            <span>Link resmi</span>
+            <span className="h-px w-8 bg-gold/50" />
+          </p>
+          <h2 className="display text-5xl lg:text-6xl">
+            Selalu lewat <Em>pintu yang benar.</Em>
+          </h2>
+          <p className="max-w-sm leading-relaxed text-muted-foreground md:text-foreground/75">
+            Hindari situs tiruan. Akses KOIJP hanya lewat link resmi atau link
+            yang dibagikan langsung oleh customer service kami.
+          </p>
+          <span className="flex w-fit items-center gap-3 rounded-full bg-background/70 py-2 pr-5 pl-2 ring-1 ring-gold/30 backdrop-blur">
+            <span className="grid size-8 place-items-center rounded-full bg-gold text-ink">
+              <ShieldCheck className="size-4" />
+            </span>
+            <span className="font-mono text-sm tracking-wide">koijp.com</span>
+          </span>
+        </figcaption>
       </figure>
     </section>
   );
