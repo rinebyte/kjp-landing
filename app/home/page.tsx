@@ -39,7 +39,11 @@ const OG_IMAGE = {
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
   description: PAGE_DESCRIPTION,
-  alternates: { canonical: "/home" },
+  alternates: {
+    canonical: "/home",
+    // Self-referencing hreflang: halaman ini versi Bahasa Indonesia dan juga default.
+    languages: { "id-ID": "/home", "x-default": "/home" },
+  },
   openGraph: {
     title: PAGE_TITLE,
     description:
